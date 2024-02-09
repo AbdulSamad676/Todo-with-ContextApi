@@ -8,7 +8,7 @@ import { TodoProvider } from './contexts';
 
 function App() {
 	const [todos, setTodos] = useState([]);
-
+	const [disable, setDisable] = useState(false);
 	const addTodo = todo => {
 		setTodos(prev => [{ id: Date.now(), ...todo }, ...prev]);
 	};
@@ -28,11 +28,18 @@ function App() {
 		);
 	};
 	const deleteCompleted = () => {
+		console.log('clicked');
 		setTodos(prev =>
 			prev.filter(item => {
 				return item.completed != true;
 			})
 		);
+
+		// setTodos(prev =>
+		// 	prev.filter(item => {
+		// 		return item.completed != true;
+		// 	})
+		// );
 	};
 
 	useEffect(() => {
@@ -44,6 +51,11 @@ function App() {
 
 	useEffect(() => {
 		localStorage.setItem('todos', JSON.stringify(todos));
+		if (todos.length > 0) {
+			setDisable(false);
+		} else {
+			setDisable(true);
+		}
 	}, [todos]);
 
 	return (
@@ -78,9 +90,11 @@ function App() {
 					{/* deleteCompleted Btn */}
 
 					<div
-						className={` w-full mt-5 text-center border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 font-bold bg-blue-900  text-white`}
+						className={` w-full mt-5 text-center border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 font-bold bg-blue-900  ${
+							disable ? 'hidden' : 'block'
+						} text-white`}
 					>
-						<button onClick={deleteCompleted}>
+						<button className='w-full' onClick={deleteCompleted}>
 							Delete Completed
 						</button>
 					</div>
