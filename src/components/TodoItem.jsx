@@ -6,7 +6,7 @@ function TodoItem({ todo }) {
 	// getting context data from context
 	const { updateTodo, deleteTodo, toggleComplete } = useTodo();
 
-	const [isTodoEditable, setIsTodoEditable] = useState('false');
+	const [isTodoEditable, setIsTodoEditable] = useState(todo.completed);
 	const [todoMsg, setTodoMsg] = useState(todo.title);
 
 	const editTodo = () => {

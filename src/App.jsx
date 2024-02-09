@@ -27,6 +27,13 @@ function App() {
 			)
 		);
 	};
+	const deleteCompleted = () => {
+		setTodos(prev =>
+			prev.filter(item => {
+				return item.completed != true;
+			})
+		);
+	};
 
 	useEffect(() => {
 		const todos = JSON.parse(localStorage.getItem('todos'));
@@ -41,7 +48,14 @@ function App() {
 
 	return (
 		<TodoProvider
-			value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
+			value={{
+				todos,
+				addTodo,
+				updateTodo,
+				deleteTodo,
+				toggleComplete,
+				deleteCompleted,
+			}}
 		>
 			<div className='bg-[#172842] min-h-screen py-8'>
 				<div className='w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white'>
@@ -60,6 +74,15 @@ function App() {
 								<TodoItem todo={item} />
 							</div>
 						))}
+					</div>
+					{/* deleteCompleted Btn */}
+
+					<div
+						className={` w-full mt-5 text-center border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 font-bold bg-blue-900  text-white`}
+					>
+						<button onClick={deleteCompleted}>
+							Delete Completed
+						</button>
 					</div>
 				</div>
 			</div>
