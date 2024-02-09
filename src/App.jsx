@@ -8,7 +8,9 @@ import { TodoProvider } from './contexts';
 
 function App() {
 	const [todos, setTodos] = useState([]);
+	// the disbale state is for button disability if there is no clicked todo
 	const [disable, setDisable] = useState(true);
+	// the visible state is for button hidden if there is no todo in the todos array
 	const [visible, setVisible] = useState(false);
 	const addTodo = todo => {
 		setTodos(prev => [{ id: Date.now(), ...todo }, ...prev]);
